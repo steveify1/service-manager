@@ -1,0 +1,31 @@
+{
+  "name": "service-manager",
+  "version": "1.0.0",
+  "description": "A program that enforces a certain base object signature that all the services (classes that interact with specific resources) in a monolith must implement. This is more of a pattern than a software.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "prettier": "^2.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steveify1/service-manager.git"
+  },
+  "author": "Nwakasi Stephen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/steveify1/service-manager/issues"
+  },
+  "homepage": "https://github.com/steveify1/service-manager#readme"
+}
