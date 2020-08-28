@@ -2,9 +2,13 @@
   "name": "service-manager",
   "version": "1.0.0",
   "description": "A program that enforces a certain base object signature that all the services (classes that interact with specific resources) in a monolith must implement. This is more of a pattern than a software.",
-  "main": "index.js",
+  "main": "index.ts",
   "dependencies": {},
   "devDependencies": {
+    "@types/chai": "^4.2.12",
+    "@types/mocha": "^8.0.3",
+    "chai": "^4.2.0",
+    "coveralls": "^3.1.0",
     "eslint": "^7.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -13,10 +17,16 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
-    "prettier": "^2.1.1"
+    "mocha": "^8.1.2",
+    "nyc": "^15.1.0",
+    "prettier": "^2.1.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "coverage": "nyc --reporter=html --reporter=text -e .ts -x \"*.test.ts\"",
+    "test": "npm run coverallsmocha --require ts-node/register --recursive tests/**/*.test.ts",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
