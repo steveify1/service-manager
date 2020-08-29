@@ -5,5 +5,7 @@ export default interface IPortal {
    * An object containing a set of services
    * @property
    */
-  services: object;
+  channel: object;
+
+  exposeChannel(service: IService): object;
 }

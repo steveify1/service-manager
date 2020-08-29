@@ -2,8 +2,15 @@ import { expect } from 'chai';
 import Service from '../../src/lib/Service';
 import IPortal from '../../src/lib/interfaces/IPortal';
 import IEventManager from '../../src/lib/interfaces/IEventManager';
+import IChannel from '../../src/lib/interfaces/IChannel';
 
-const portal: IPortal = { services: {} };
+const portal: IPortal = {
+  channel: {},
+  exposeChannel(service: Service) {
+    return this.channel;
+  },
+};
+
 const eventManager: IEventManager = { emit: () => null };
 
 class TestService extends Service {
@@ -11,8 +18,8 @@ class TestService extends Service {
     return this.eventManager;
   }
 
-  getPortal(): IPortal | undefined {
-    return this.portal;
+  getChannel(): object | undefined {
+    return this.channel;
   }
 }
 
@@ -32,12 +39,13 @@ describe('Base Service class', () => {
     });
   });
 
-  describe('When the service is connected, the `portal` property', () => {
-    it('should be be defined', () => {
+  describe('When the service is connected, the `channel` property', () => {
+    it('should be defined', () => {
       testService = testService as TestService;
-      testService.connect(portal);
+      const channel: IChannel = portal.exposeChannel(testService);
+      testService.connect(channel);
 
-      expect(testService!.getPortal()!.services).is.not.undefined;
+      expect(testService!.getChannel()).is.not.undefined;
     });
   });
 });
