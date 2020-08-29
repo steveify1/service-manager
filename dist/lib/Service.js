@@ -12,12 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class Service {
     /**
      * Allows the service to connect to other services
-     * @param { IPortal } portal - a reference to an object in the service manager containing all other services
+     * @param { IChannel } channel - a reference to an object in the service manager containing all other services
      * in the system except for this current one
      * @returns { void } void
      */
-    connect(portal) {
-        this.portal = portal;
+    connect(channel) {
+        this.channel = channel;
     }
     /**
      * Sets the eventManager through which the service can send and receive
