@@ -26,7 +26,7 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text -e .ts mocha --require ts-node/register --recursive tests/**/*.test.ts",
+    "test": "nyc --reporter=html --reporter=text -e .ts mocha --require ts-node/register --recursive tests/**/*.test.ts --watch-extensions ts",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
