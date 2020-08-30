@@ -13,11 +13,11 @@ class Portal {
         this.channel = services;
     }
     excludeService(serviceToExclude) {
-        const modifiedChannel = {};
+        let modifiedChannel = {};
         for (let service in this.channel) {
             const { value } = Object.getOwnPropertyDescriptor(this.channel, service);
-            if (value !== serviceToExclude) {
-                Object.defineProperty(modifiedChannel, service, { value });
+            if (value === serviceToExclude) {
+                modifiedChannel = Object.assign(Object.assign({}, this.channel), { [service]: undefined });
             }
         }
         return modifiedChannel;
