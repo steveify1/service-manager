@@ -1,3 +1,1 @@
-export default interface IEventManager {
-  emit(): null;
-}
+export default interface IEventManager {}
