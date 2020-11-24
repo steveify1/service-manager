@@ -59,15 +59,15 @@ describe('ServiceManager', () => {
       expect(providePortalChannelStub.callCount).to.equal(3);
     });
 
-    it('should call the `provideEventManager` method as many times as the number of services in the registry', () => {
-      const provideEventManagerStub = stub(
-        serviceManager!,
-        'provideEventManager'
-      );
-      serviceManager!.setup();
-      expect(provideEventManagerStub.called).to.be.true;
-      expect(provideEventManagerStub.callCount).to.equal(3);
-    });
+    // it('should call the `provideEventManager` method as many times as the number of services in the registry', () => {
+    //   const provideEventManagerStub = stub(
+    //     serviceManager!,
+    //     'provideEventManager'
+    //   );
+    //   serviceManager!.setup();
+    //   expect(provideEventManagerStub.called).to.be.true;
+    //   expect(provideEventManagerStub.callCount).to.equal(3);
+    // });
 
     it('should return the service property on the ServiceManager', () => {
       expect(serviceManager!.setup()).to.equal(serviceManager!.services);
@@ -88,16 +88,16 @@ describe('ServiceManager', () => {
     });
   });
 
-  describe('When the `provideEventManager` method is called', () => {
-    it('should call the `setEventManager` method on its @param `service` and pass an event manager object to it', () => {
-      const { userService } = registry;
-      const setEventManagerStub = stub(userService, 'setEventManager');
+  // describe('When the `provideEventManager` method is called', () => {
+  //   it('should call the `setEventManager` method on its @param `service` and pass an event manager object to it', () => {
+  //     const { userService } = registry;
+  //     const setEventManagerStub = stub(userService, 'setEventManager');
 
-      serviceManager!.provideEventManager(userService);
+  //     serviceManager!.provideEventManager(userService);
 
-      expect(setEventManagerStub.calledOnce).to.be.true;
-      expect(setEventManagerStub.calledOnceWith(serviceManager!.eventManager))
-        .to.be.true;
-    });
-  });
+  //     expect(setEventManagerStub.calledOnce).to.be.true;
+  //     expect(setEventManagerStub.calledOnceWith(serviceManager!.eventManager))
+  //       .to.be.true;
+  //   });
+  // });
 });

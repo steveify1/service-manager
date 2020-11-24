@@ -1,6 +1,10 @@
 import IService from './interfaces/IService';
-import IEventManager from './interfaces/IEventManager';
-import IChannel from './interfaces/IChannel';
+import EventManager, { useEventManager } from './EventManager';
+import Channel from './types/Channel';
+import ControlledListener from './types/ControlledListener';
+import ControlledEventOptions from './types/ControlledEventOptions';
+
+const eventManager = useEventManager();
 
 /**
  * It is the oldest ancestor of all other services of this API and the only place
@@ -12,27 +16,51 @@ import IChannel from './interfaces/IChannel';
  * a response to the requesting client.
  */
 class Service implements IService {
-  eventManager: IEventManager | undefined;
-  channel: IChannel | undefined;
+  eventManager: EventManager = eventManager;
+  channel: Channel | undefined;
 
-  /**
-   * Allows the service to connect to other services
-   * @param { IChannel } channel - a reference to an object in the service manager containing all other services
-   * in the system except for this current one
-   * @returns { void } void
-   */
-  connect(channel: IChannel): void {
-    this.channel = channel;
+  constructor() {
+    this.setListeners();
+  }
+
+  emit(event: string | symbol, ...args: any[]): boolean {
+    return this.eventManager.emit(event, ...args);
+  }
+  
+  cEmit(event: string | symbol, options: ControlledEventOptions): Promise<object | undefined> {
+    try {
+      return this.eventManager.cEmit(event, options);
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
-   * Sets the eventManager through which the service can send and receive
-   * messages from other services
-   * @param { IEventManager } eventManager - An instance of the `EventManager` class
+   * A simple method to set all your event handlers in a service. This
+   * method is called automatically when your service is instantiated
+   *
+   * @returns { void }
+   */
+  protected setListeners(): void {}
+
+  /**
+   * 
+   * @param { string | symbol } event - A registered event
+   * @param { ControlledListener | Function } handler - An event handler
    * @returns { void } void
    */
-  setEventManager(eventManager: IEventManager): void {
-    this.eventManager = eventManager;
+  on(event: string | symbol, handler: ControlledListener): void {
+    this.eventManager.on(event, handler);
+  }
+
+  /**
+   * Allows the service to connect to other services
+   * @param { Channel } channel - a reference to an object in the service manager containing all other services
+   * in the system except for this current one
+   * @returns { void } void
+   */
+  connect(channel: Channel): void {
+    this.channel = channel;
   }
 }
 

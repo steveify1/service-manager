@@ -3,8 +3,7 @@ import IPortal from './interfaces/IPortal';
 import IEventManager from './interfaces/IEventManager';
 import IService from './interfaces/IService';
 import Portal from './Portal';
-
-const eventManager: IEventManager = { emit: () => null };
+import EventManager from './EventManager';
 
 /**
  * A class that manages all the services in the system
@@ -14,7 +13,7 @@ const eventManager: IEventManager = { emit: () => null };
 class ServiceManager implements IServiceManager {
   services: object;
   portal: IPortal;
-  eventManager: IEventManager = eventManager;
+  eventManager: EventManager = new EventManager();
 
   /**
    *
@@ -36,25 +35,13 @@ class ServiceManager implements IServiceManager {
   }
 
   /**
-   * Provides a service with access to a central event mamager object
-   * @param { IService } service - A service instance
-   * @returns { void } void
-   */
-  provideEventManager(service: IService): void {
-    service.setEventManager(this.eventManager);
-  }
-
-  /**
    * Sets up access and connection for every service in the registry
    */
   setup(): object {
     for (const serviceName in this.services) {
-      const service = Object.getOwnPropertyDescriptor(
-        this.services,
-        serviceName
-      )!.value as IService;
-
-      this.provideEventManager(service);
+      const service = Object.getOwnPropertyDescriptor(this.services, serviceName)!
+        .value as IService;
+      
       this.providePortalChannel(service);
     }
     return this.services;
