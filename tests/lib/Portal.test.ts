@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import IChannel from '../../src/lib/interfaces/IChannel';
+import Channel from '../../src/lib/types/Channel';
 import IPortal from '../../src/lib/interfaces/IPortal';
 import Service from '../../src/lib/Service';
 import Portal from '../../src/lib/Portal';
@@ -19,9 +19,7 @@ describe('Portal', () => {
 
   describe('When the exposeChannel method is called', () => {
     it('should return a portal channel', () => {
-      expect(typeof portal!.exposeChannel(services.userService)).to.equal(
-        'object'
-      );
+      expect(typeof portal!.exposeChannel(services.userService)).to.equal('object');
     });
 
     it('should call the excludeService() method', () => {
@@ -44,10 +42,7 @@ describe('Portal', () => {
 
       const { postService } = services;
       const modifiedChannel = portal!.excludeService(postService);
-      const { value } = Object.getOwnPropertyDescriptor(
-        modifiedChannel,
-        'postService'
-      )!;
+      const { value } = Object.getOwnPropertyDescriptor(modifiedChannel, 'postService')!;
 
       expect(value).to.be.undefined;
     });
